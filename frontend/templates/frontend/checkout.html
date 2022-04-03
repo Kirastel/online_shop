@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block tittle %} Checkout {% endblock %}
+
+
+{% block css_files %}
+<link rel="stylesheet" type="text/css" href="{% static 'frontend/styles/checkout.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'frontend/styles/checkout_responsive.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="super_container">
+
+	<!-- Home -->
+
+	<div class="home">
+		<div class="home_container">
+			<div class="home_background" style="background-image:url({% static 'frontend/images/cart.jpg' %})"></div>
+			<div class="home_content_container">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div class="home_content">
+								<div class="breadcrumbs">
+									<ul>
+										<li><a href="{% url 'index' %}">Home</a></li>
+										<li><a href="{% url 'cart' %}">Shopping Cart</a></li>
+										<li>Checkout</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Checkout -->
+	<div class="checkout">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="billing checkout_section">
+						<div class="section_title">Billing Address</div>
+						<div class="section_subtitle">Enter your address info</div>
+						<div class="checkout_form_container">
+							<form  method="post" class="checkout-form" id="checkout_form">
+								<div class="row">
+								{% csrf_token %}
+
+									<div class="col-xl-6">
+									<label>First Name*</label>
+									{{ checkout_form.f_name }}
+										</div>
+									<div class="col-xl-6 last_name_col">
+										<label>Last Name*</label>
+										{{ checkout_form.l_name }}
+									</div>
+
+								</div>
+									<div>
+									<label for=>Company</label>
+									{{ checkout_form.company }} <br>
+									</div>
+
+									<div>
+									<label>Country*</label>
+									{{ checkout_form.country }}
+									</div>
+
+									<div>
+									<label>Address*</label>
+									{{ checkout_form.adress }}
+									</div>
+
+									<div>
+									<label>Zipcode*</label>
+									{{ checkout_form.zip }}
+									</div>
+
+									<div>
+									<label>City/Town*</label>
+									{{ checkout_form.city }}
+									</div>
+
+									<div>
+									<label>Province*</label>
+									{{ checkout_form.province }}
+									</div>
+
+									<div>
+									<label>Phone number*</label>
+									{{ checkout_form.phone }}
+									</div>
+
+									<div>
+									<label>Email Address*</label>
+									{{ checkout_form.email }}
+									</div>
+									<p><input class="button order_button" type="submit" value="Place order"></p>
+							</form>
+						</div>
+					</div>
+				</div>
+
+
+				<!-- Order Info -->
+
+				<div class="col-lg-6">
+					<div class="order checkout_section">
+						<div class="section_title">Your order</div>
+						<div class="section_subtitle">Order details</div>
+
+						<!-- Order details -->
+						<div class="order_list_container">
+							<div class="order_list_bar d-flex flex-row align-items-center justify-content-start">
+								<div class="order_list_title">Product</div>
+								<div class="order_list_value ml-auto">Total</div>
+							</div>
+							{% for item in cart %}
+							<ul class="order_list">
+								<li class="d-flex flex-row align-items-center justify-content-start">
+									<div class="order_list_title">{{ item.product }} x {{ item.quantity }}</div>
+									<div class="order_list_value ml-auto">${{ item.price }}</div>
+								</li>
+							</ul>
+							{% endfor %}
+						</div>
+
+						<!-- Payment Options -->
+						<div class="payment">
+							<div class="payment_options">
+								<label class="payment_option clearfix">Paypal
+									<input type="radio" name="radio">
+									<span class="checkmark"></span>
+								</label>
+								<label class="payment_option clearfix">Cach on delivery
+									<input type="radio" name="radio">
+									<span class="checkmark"></span>
+								</label>
+								<label class="payment_option clearfix">Credit card
+									<input type="radio" name="radio">
+									<span class="checkmark"></span>
+								</label>
+								<label class="payment_option clearfix">Direct bank transfer
+									<input type="radio" checked="checked" name="radio">
+									<span class="checkmark"></span>
+								</label>
+							</div>
+						</div>
+
+						<!-- Order Text -->
+						<div class="order_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra temp or so dales. Phasellus sagittis auctor gravida. Integ er bibendum sodales arcu id te mpus. Ut consectetur lacus.</div>
+						<div class="button order_button"><a href="#">Place Order</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Footer -->
+	
+	<div class="footer_overlay"></div>
+	<footer class="footer">
+		<div class="footer_background" style="background-image:url({% static 'frontend/images/footer.jpg' %})"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="footer_content d-flex flex-lg-row flex-column align-items-center justify-content-lg-start justify-content-center">
+						<div class="footer_logo"><a href="{% url 'index' %}">Apple Grey</a></div>
+						<div class="copyright ml-auto mr-auto"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
+						<div class="footer_social ml-lg-auto">
+							<ul>
+								<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+								<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+								<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+</div>
+{% endblock %}
+
+
+{% block js_files %}
+	<script src="{% static 'frontend/js/checkout.js' %}"></script>
+{% endblock %}

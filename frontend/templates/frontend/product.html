@@ -1,0 +1,264 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block tittle %} Product {% endblock %}
+
+
+{% block css_files %}
+<link rel="stylesheet" type="text/css" href="{% static 'frontend/plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'frontend/plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'frontend/plugins/OwlCarousel2-2.2.1/animate.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'frontend/styles/product.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'frontend/styles/product_responsive.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="super_container">
+
+
+    <!-- Social -->
+    <div class="header_social">
+        <ul>
+            <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        </ul>
+    </div>
+
+
+    <!-- Home -->
+    <div class="home">
+        <div class="home_container">
+            <div class="home_background"
+                 style="background-image:url({% static 'frontend/images/categories.jpg' %})"></div>
+            <div class="home_content_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="home_content">
+                                <div class="home_title">Smart Phones<span>.</span></div>
+                                <div class="home_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    Nullam a ultricies metus. Sed nec molestie eros. Sed viverra velit venenatis
+                                    fermentum luctus.</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Details -->
+    <div class="product_details">
+        <div class="container">
+            <div class="row details_row">
+
+                <!-- Product Image -->
+                <div class="col-lg-6">
+                    <div class="details_image">
+                        <div class="details_image_large"><img src="{{ product.IMAGE.first.image.url }}" alt="">
+                            <div class="product_extra product_new"><a href="{% url 'categories' %}">New</a></div>
+                        </div>
+                        <div class="details_image_thumbnails d-flex flex-row align-items-start justify-content-between">
+                            {% for i in product.IMAGE.all %}
+                            <div class="details_image_thumbnail active" data-image="{{ i.image.url }}"><img
+                                    src="{{ i.image.url }}" alt=""></div>
+                            {% endfor %}
+
+                            <!--							<div class="details_image_thumbnail" data-image="images/details_2.jpg"><img src="{% static 'frontend/images/details_2.jpg' %}" alt=""></div>-->
+                            <!--							<div class="details_image_thumbnail" data-image="images/details_3.jpg"><img src="{% static 'frontend/images/details_3.jpg' %}" alt=""></div>-->
+                            <!--							<div class="details_image_thumbnail" data-image="images/details_4.jpg"><img src="{% static 'frontend/images/details_4.jpg' %}" alt=""></div>-->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Content -->
+                <div class="col-lg-6">
+                    <div class="details_content">
+                        <div class="details_name">{{ product.type }} {{ product.generation }} {{ product.version }} {{
+                            product.storage }} {{ product.color }}
+                        </div>
+
+                        {% if product.old_price %}
+                        <div class="details_discount">${{ product.old_price }}</div>
+                        {% endif %}
+
+                        <div class="details_price"> ${{ product.price }}</div>
+
+                        <!-- In Stock -->
+
+                        <div class="in_stock_container">
+                            <div class="availability">Availability:</div>
+                            <span>{% autoescape off %}{{ product.availability_color }}{% endautoescape %}</span>
+                        </div>
+                        <div class="details_text">
+                            <p>{{ product.short_description|safe }}</p>
+                        </div>
+
+                        {% if product.availability == 'In stock' %}
+                        <form action="{% url 'cart_add' product.id %}" method="post">
+                            {{ cart_product_form }}
+                            {% csrf_token %}
+                            <input type="submit" value="Add to cart">
+                        </form>
+                        {% endif %}
+
+
+                        <!-- Share -->
+                        <div class="details_share">
+                            <span>Share:</span>
+                            <ul>
+                                <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row description_row">
+                <div class="col">
+                    <div class="description_title_container">
+                        <div class="description_title">Description</div>
+                        <div class="reviews_title"><a href="#">Reviews <span>(1)</span></a></div>
+                    </div>
+                    <div class="description_text">
+                        <p>{{ product.description|safe }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products -->
+    <div class="products">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <div class="products_title">Other</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+
+                    <div class="product_grid">
+
+                        <!-- Product -->
+                        <div class="product">
+                            <div class="product_image"><img src="{% static 'frontend/images/product_1.jpg' %}" alt="">
+                            </div>
+                            <div class="product_extra product_new"><a href="{% url 'categories' %}">New</a></div>
+                            <div class="product_content">
+                                <div class="product_title"><a href="">Smart Phone</a></div>
+                                <div class="product_price">$670</div>
+                            </div>
+                        </div>
+
+                        <!-- Product -->
+                        <div class="product">
+                            <div class="product_image"><img src="{% static 'frontend/images/product_2.jpg' %}" alt="">
+                            </div>
+                            <div class="product_extra product_sale"><a href="{% url 'categories' %}">Sale</a></div>
+                            <div class="product_content">
+                                <div class="product_title"><a href="">Smart Phone</a></div>
+                                <div class="product_price">$520</div>
+                            </div>
+                        </div>
+
+                        <!-- Product -->
+                        <div class="product">
+                            <div class="product_image"><img src="{% static 'frontend/images/product_3.jpg' %}" alt="">
+                            </div>
+                            <div class="product_content">
+                                <div class="product_title"><a href="">Smart Phone</a></div>
+                                <div class="product_price">$710</div>
+                            </div>
+                        </div>
+
+                        <!-- Product -->
+                        <div class="product">
+                            <div class="product_image"><img src="{% static 'frontend/images/product_4.jpg' %}" alt="">
+                            </div>
+                            <div class="product_content">
+                                <div class="product_title"><a href="">Smart Phone</a></div>
+                                <div class="product_price">$330</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="newsletter">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="newsletter_border"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="newsletter_content text-center">
+                        <div class="newsletter_title">Subscribe to our newsletter</div>
+                        <div class="newsletter_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+                            a ultricies metus. Sed nec molestie eros</p></div>
+                        <div class="newsletter_form_container">
+                            <form action="#" id="newsletter_form" class="newsletter_form">
+                                <input type="email" class="newsletter_input" required="required">
+                                <button class="newsletter_button trans_200"><span>Subscribe</span></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer_overlay"></div>
+    <footer class="footer">
+        <div class="footer_background" style="background-image:url({% static 'frontend/images/footer.jpg' %})"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="footer_content d-flex flex-lg-row flex-column align-items-center justify-content-lg-start justify-content-center">
+                        <div class="footer_logo"><a href="{% url 'index' %}">Apple Grey</a></div>
+                        <div class="copyright ml-auto mr-auto">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                            All rights reserved | This template is made with <i class="fa fa-heart-o"
+                                                                                aria-hidden="true"></i> by <a
+                                href="https://colorlib.com" target="_blank">Colorlib</a>
+                        </div>
+                        <div class="footer_social ml-lg-auto">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+{% endblock %}
+
+
+{% block js_files %}
+<script src="{% static 'frontend/js/script_cart.js' %}"></script>
+<script src="{% static 'frontend/js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'frontend/plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+<script src="{% static 'frontend/plugins/Isotope/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'frontend/js/product.js' %}"></script>
+{% endblock %}
