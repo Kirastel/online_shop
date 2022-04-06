@@ -1,6 +1,8 @@
 
 ## Main purpose:
 This is online shop for buy apple products.
+
+This project was created in the django framework using the python and django libraries.
 ____
 ## Key concepts:
 * Products for buying are added to the database by the admin;
