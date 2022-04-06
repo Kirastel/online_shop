@@ -1,6 +1,7 @@
 
 ## Main purpose:
 This is online shop for buy 'Apple' products.
+
 This is my pet-prject. The project was created in the django framework using the python and django libraries.
 ____
 ## Key concepts:
