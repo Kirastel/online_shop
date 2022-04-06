@@ -1,6 +1,6 @@
 
 ## Main purpose:
-This is online shop for buy apple products.
+This is online shop for buy 'Apple' products.
 
 This project was created in the django framework using the python and django libraries.
 ____
