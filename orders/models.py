@@ -105,26 +105,26 @@ class ProductInOrder(models.Model):
         return f'Заказ № {self.id}: {self.order}'
 
 
-#     def save(self, *args, **kwargs):
-#         price_per_item = self.product_order.price
-#         self.price_per_item = price_per_item
-#         self.total_price = self.number * price_per_item
-#         super(ProductInOrder, self).save(*args, **kwargs)
-#
-#
-# def product_in_order_post_save(sender, instance, created, **kwargs):
-#     order = instance.order
-#     all_products_in_order = ProductInOrder.objects.filter(order=order)
-#
-#     order_total_price = 0
-#     for item in all_products_in_order:
-#         order_total_price += item.total_price
-#
-#     instance.order.total_price = order_total_price
-#     instance.order.save(force_update=True)
-#
-#
-# post_save.connect(product_in_order_post_save, sender=ProductInOrder)
+    def save(self, *args, **kwargs):
+        price_per_item = self.product_order.price
+        self.price_per_item = price_per_item
+        self.total_price = self.number * price_per_item
+        super(ProductInOrder, self).save(*args, **kwargs)
+
+
+def product_in_order_post_save(sender, instance, created, **kwargs):
+    order = instance.order
+    all_products_in_order = ProductInOrder.objects.filter(order=order)
+
+    order_total_price = 0
+    for item in all_products_in_order:
+        order_total_price += item.total_price
+
+    instance.order.total_price = order_total_price
+    instance.order.save(force_update=True)
+
+
+post_save.connect(product_in_order_post_save, sender=ProductInOrder)
 
 
 class Contact(models.Model):
