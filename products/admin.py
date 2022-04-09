@@ -18,13 +18,7 @@ class ProductAdminForm(forms.ModelForm):
         fields = '__all__'
 
 
-# class AccessoriesAdminForm(forms.ModelForm):
-#     short_description = forms.CharField(widget=CKEditorWidget())
-#     description = forms.CharField(widget=CKEditorWidget())
-#
-#     class Meta:
-#         model = Accessories
-#         fields = '__all__'
+
 
 
 @admin.register(Product)
@@ -34,10 +28,7 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductImageInline]
 
 
-# @admin.register(Accessories)
-# class AccessoriesAdmin(admin.ModelAdmin):
-#     form = AccessoriesAdminForm
-#     list_display = [field.name for field in Accessories._meta.fields]
+
 
 
 @admin.register(Categories)
