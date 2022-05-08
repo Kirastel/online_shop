@@ -2,7 +2,7 @@
 ## Main purpose:
 This is online shop for buy 'Apple' products.
 
-This is my pet-project. The project was created in the django framework using the python and django libraries.
+
 ____
 ## Key concepts:
 * Products for buying are added to the database by the admin;
@@ -11,6 +11,10 @@ ____
 * User can leave feedback for admin;
 * Admin append and redact products image in admin-panel;
 ____
+## Technical discription:
+
+____
+
 ## To run application on local machine:
 1. Clone the repository:
 git clone https://github.com/Kirastel/online_shop.git && cd online_shop
