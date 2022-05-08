@@ -12,7 +12,7 @@ ____
 * Admin append and redact products image in admin-panel;
 ____
 ## Technical discription:
-
+The project consists of the following applications: frontend, product, order. The user can add a product to the cart and create an order that will be created on the server side in the model 'Order'. Check out occurs through the work of forms and with the help of a post request. After adding a product to the cart, the user can go to the cart and place an order, which will be created on the server in the order model
 ____
 
 ## To run application on local machine:
